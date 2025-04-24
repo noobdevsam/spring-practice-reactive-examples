@@ -13,11 +13,11 @@ public class PersonRepositoryImpl implements PersonRepository {
 
     @Override
     public Mono<Person> findById(Integer id) {
-        return null;
+        return Mono.just(michael);
     }
 
     @Override
     public Flux<Person> findAll() {
-        return null;
+        return Flux.just(michael, john, jane, alice);
     }
 }
