@@ -1,5 +1,6 @@
 package com.example.springpracticereactiveexamples.repositories;
 
+import com.example.springpracticereactiveexamples.domain.Person;
 import org.junit.jupiter.api.Test;
 
 class PersonRepositoryImplTest {
@@ -38,4 +39,19 @@ class PersonRepositoryImplTest {
 
 		person_mono.subscribe(person -> System.out.println(person.toString()));
 	}
+
+	@Test
+	void test_map_operations() {
+		// This test demonstrates the use of the `map` operator in a reactive programming context.
+		// It retrieves a Mono containing a Person object with the specified ID (1) and then applies a transformation to it.
+		// The transformation involves mapping the Person object to its name using the `map` operator.
+		// Finally, it subscribes to the transformed Mono and prints the name of the person.
+
+		var person_mono = personRepository.findById(1);
+
+		person_mono
+			.map(Person::firstName) // This is same as person_mono.map(person -> person.firstName())
+			.subscribe(System.out::println); // This is same as person_mono.subscribe(name -> System.out.println(name));
+	}
+
 }
