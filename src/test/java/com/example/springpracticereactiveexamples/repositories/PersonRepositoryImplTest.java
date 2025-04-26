@@ -19,4 +19,23 @@ class PersonRepositoryImplTest {
 			person_mono.block()
 		);
 	}
+
+	/*
+	 * The test method named `test_mono_get_by_id_subscribe()` demonstrates how to work with a `Mono` in a reactive programming context.
+	 * A `Mono` is a Reactor type that represents a single asynchronous value or an empty result.
+	 *
+	 * In this test, the `findById` method of the `PersonRepository` is called to retrieve a `Mono` containing a `Person` object with the specified ID (`1` in this case).
+	 * Instead of blocking the `Mono` to retrieve the value (as in the other test), this method uses the `subscribe` method to handle the result asynchronously.
+	 * The `subscribe` method takes a lambda function as a parameter, which is executed when the `Mono` emits its value.
+	 *
+	 * This approach aligns with the non-blocking nature of reactive programming, as it does not halt the execution of the test while waiting for the `Mono` to resolve.
+	 * However, since this is a test, it lacks assertions to verify the correctness of the result, making it more of a demonstration than a proper test case.
+	 * */
+
+	@Test
+	void test_mono_get_by_id_subscribe() {
+		var person_mono = personRepository.findById(1);
+
+		person_mono.subscribe(person -> System.out.println(person.toString()));
+	}
 }
