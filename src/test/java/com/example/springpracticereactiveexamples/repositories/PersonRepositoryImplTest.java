@@ -54,4 +54,17 @@ class PersonRepositoryImplTest {
 			.subscribe(System.out::println); // This is same as person_mono.subscribe(name -> System.out.println(name));
 	}
 
+	@Test
+	void test_flux_block_first() {
+		// This test demonstrates how to retrieve a Flux of Person objects from the PersonRepository and block to get the first element.
+		// It uses the `findAll` method to get a Flux of Person objects and then blocks to retrieve the first element using `blockFirst()`.
+		// Finally, it prints the result.
+
+		var person_flux = personRepository.findAll();
+
+		System.out.println(
+			person_flux.blockFirst()
+		);
+	}
+
 }
