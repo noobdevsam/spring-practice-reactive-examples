@@ -108,4 +108,41 @@ class PersonRepositoryImplTest {
 
 	}
 
+	@Test
+	void test_get_by_id_with_filter() {
+
+		var person_flux = personRepository.findAll();
+
+		// The first operation filters the Flux to find Person objects with an id equal to 3.
+		// The filter operator is used to apply this condition, and the resulting filtered Flux is subscribed to using the subscribe method.
+		// Each matching Person is printed to the console.
+		person_flux
+			.filter(person -> person.id() == 3)
+			.subscribe(System.out::println);
+
+		// The second operation filters the Flux to find the first Person object whose firstName equals "John".
+		// The filter operator is again used to apply the condition, but this time the next method is called to retrieve a Mono
+		// containing only the first matching element.
+		// The subscribe method is then used to print the firstName of the matching Person.
+		person_flux
+			.filter(person -> person.firstName().equals("John"))
+			.next() // This will return a Mono<Person> with the first matching element
+			.subscribe(person -> {
+				System.out.println(person.firstName());
+			});
+	}
+
+	@Test
+	void test_filter_on_name() {
+		// This test demonstrates how to filter a Flux of Person objects based on their first name.
+		// It retrieves a Flux of Person objects from the PersonRepository and then filters them to find those with the first name "John".
+		// Finally, it subscribes to the filtered Flux and prints each matching Person.
+
+		var person_flux = personRepository.findAll();
+
+		person_flux
+			.filter(person -> person.firstName().equals("John"))
+			.subscribe(System.out::println);
+	}
+
 }
