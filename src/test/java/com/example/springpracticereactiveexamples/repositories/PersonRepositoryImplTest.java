@@ -78,4 +78,18 @@ class PersonRepositoryImplTest {
 		person_flux.subscribe(System.out::println);
 	}
 
+	@Test
+	void test_flux_map() {
+		// This test demonstrates how to use the `map` operator with a Flux of Person objects.
+		// It retrieves a Flux of Person objects from the PersonRepository and then applies a transformation to it.
+		// The transformation involves mapping each Person object to its first name using the `map` operator.
+		// Finally, it subscribes to the transformed Flux and prints each name.
+
+		var person_flux = personRepository.findAll();
+
+		person_flux
+			.map(Person::firstName)
+			.subscribe(System.out::println);
+	}
+
 }
