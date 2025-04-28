@@ -67,4 +67,15 @@ class PersonRepositoryImplTest {
 		);
 	}
 
+	@Test
+	void test_flux_subscribe() {
+		// This test demonstrates how to subscribe to a Flux of Person objects and print each element.
+		// It uses the `findAll` method to get a Flux of Person objects and then subscribes to it.
+		// The subscription prints each Person object as it is emitted by the Flux.
+
+		var person_flux = personRepository.findAll();
+
+		person_flux.subscribe(System.out::println);
+	}
+
 }
