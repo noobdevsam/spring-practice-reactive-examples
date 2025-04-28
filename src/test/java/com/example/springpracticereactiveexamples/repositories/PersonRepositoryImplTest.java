@@ -163,6 +163,14 @@ class PersonRepositoryImplTest {
 					System.out.println(throwable.toString());
 				}
 			);
+
+		// The above code demonstrates how to handle errors in a reactive stream using the doOnError operator.
+		// It retrieves a Flux of Person objects from the PersonRepository and filters it to find a Person with a specific ID (0 in this case).
+		// If no matching Person is found, the single operator will emit an error.
+		// The doOnError operator is used to handle the error and print a message indicating that an error occurred in the Flux.
+		// The subscribe method is then used to handle both the successful case (printing the Person) and the error case (printing the error message).
+		// This allows for graceful error handling in a reactive stream, ensuring that the application can respond appropriately to errors without crashing.
+		// The doOnError operator is useful for logging or performing side effects when an error occurs, while the subscribe method allows for handling both success and error cases.
 	}
 
 }
