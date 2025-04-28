@@ -2,6 +2,7 @@ package com.example.springpracticereactiveexamples.repositories;
 
 import com.example.springpracticereactiveexamples.domain.Person;
 import org.junit.jupiter.api.Test;
+import reactor.test.StepVerifier;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -188,4 +189,24 @@ class PersonRepositoryImplTest {
 		assertEquals(false, person_mono.hasElement().block());
 	}
 
+	@Test
+	void test_get_by_id_found_step_verifier() {
+		var person_mono = personRepository.findById(3);
+		StepVerifier.create(person_mono).expectNextCount(1).verifyComplete();
+		person_mono.subscribe(person -> System.out.println(person.firstName()));
+
+		// The above code demonstrates how to use the StepVerifier class from the Reactor Test library to create a test for a Mono.
+		// The StepVerifier is a powerful tool for testing reactive streams in a declarative way.
+		// It allows you to specify the expected behavior of the Mono and verify that it behaves as expected.
+		// In this case, the test is checking that the Mono emits exactly one element (the Person object with ID 3) and then completes.
+		// The expectNextCount(1) method specifies that the Mono should emit exactly one element, and the verifyComplete() method checks that the Mono completes successfully.
+		// The subscribe method is then used to print the first name of the emitted Person object.
+	}
+
+	@Test
+	void test_get_by_id_not_found_step_verifier() {
+		var person_mono = personRepository.findById(7);
+		StepVerifier.create(person_mono).expectNextCount(0).verifyComplete();
+		person_mono.subscribe(person -> System.out.println(person.firstName()));
+	}
 }
