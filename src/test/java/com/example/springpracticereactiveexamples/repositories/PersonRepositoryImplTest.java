@@ -1,7 +1,6 @@
 package com.example.springpracticereactiveexamples.repositories;
 
 import com.example.springpracticereactiveexamples.domain.Person;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -176,14 +175,13 @@ class PersonRepositoryImplTest {
 		// The doOnError operator is useful for logging or performing side effects when an error occurs, while the subscribe method allows for handling both success and error cases.
 	}
 
-	@Disabled
+
 	@Test
 	void test_get_by_id_found() {
 		var person_mono = personRepository.findById(3);
 		assertEquals(true, person_mono.hasElement().block());
 	}
 
-	@Disabled
 	@Test
 	void test_get_by_id_not_found() {
 		var person_mono = personRepository.findById(7);
