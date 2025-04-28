@@ -54,4 +54,58 @@ class PersonRepositoryImplTest {
 			.subscribe(System.out::println); // This is same as person_mono.subscribe(name -> System.out.println(name));
 	}
 
+	@Test
+	void test_flux_block_first() {
+		// This test demonstrates how to retrieve a Flux of Person objects from the PersonRepository and block to get the first element.
+		// It uses the `findAll` method to get a Flux of Person objects and then blocks to retrieve the first element using `blockFirst()`.
+		// Finally, it prints the result.
+
+		var person_flux = personRepository.findAll();
+
+		System.out.println(
+			person_flux.blockFirst()
+		);
+	}
+
+	@Test
+	void test_flux_subscribe() {
+		// This test demonstrates how to subscribe to a Flux of Person objects and print each element.
+		// It uses the `findAll` method to get a Flux of Person objects and then subscribes to it.
+		// The subscription prints each Person object as it is emitted by the Flux.
+
+		var person_flux = personRepository.findAll();
+
+		person_flux.subscribe(System.out::println);
+	}
+
+	@Test
+	void test_flux_map() {
+		// This test demonstrates how to use the `map` operator with a Flux of Person objects.
+		// It retrieves a Flux of Person objects from the PersonRepository and then applies a transformation to it.
+		// The transformation involves mapping each Person object to its first name using the `map` operator.
+		// Finally, it subscribes to the transformed Flux and prints each name.
+
+		var person_flux = personRepository.findAll();
+
+		person_flux
+			.map(Person::firstName)
+			.subscribe(System.out::println);
+	}
+
+	@Test
+	void test_flux_to_list() {
+		// This test demonstrates how to collect a Flux of Person objects into a List.
+		// It retrieves a Flux of Person objects from the PersonRepository and then collects them into a List using `collectList()`.
+		// Finally, it subscribes to the List and prints each Person's first name.
+
+		var person_flux = personRepository.findAll();
+
+		person_flux
+			.collectList()
+			.subscribe(list -> {
+				list.forEach(person -> System.out.println(person.firstName()));
+			});
+
+	}
+
 }
