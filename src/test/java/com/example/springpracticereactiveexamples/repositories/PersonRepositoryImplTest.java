@@ -1,7 +1,10 @@
 package com.example.springpracticereactiveexamples.repositories;
 
 import com.example.springpracticereactiveexamples.domain.Person;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class PersonRepositoryImplTest {
 
@@ -171,6 +174,20 @@ class PersonRepositoryImplTest {
 		// The subscribe method is then used to handle both the successful case (printing the Person) and the error case (printing the error message).
 		// This allows for graceful error handling in a reactive stream, ensuring that the application can respond appropriately to errors without crashing.
 		// The doOnError operator is useful for logging or performing side effects when an error occurs, while the subscribe method allows for handling both success and error cases.
+	}
+
+	@Disabled
+	@Test
+	void test_get_by_id_found() {
+		var person_mono = personRepository.findById(3);
+		assertEquals(true, person_mono.hasElement().block());
+	}
+
+	@Disabled
+	@Test
+	void test_get_by_id_not_found() {
+		var person_mono = personRepository.findById(7);
+		assertEquals(false, person_mono.hasElement().block());
 	}
 
 }
