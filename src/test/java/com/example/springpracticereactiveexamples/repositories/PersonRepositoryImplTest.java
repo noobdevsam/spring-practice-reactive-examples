@@ -132,4 +132,17 @@ class PersonRepositoryImplTest {
 			});
 	}
 
+	@Test
+	void test_filter_on_name() {
+		// This test demonstrates how to filter a Flux of Person objects based on their first name.
+		// It retrieves a Flux of Person objects from the PersonRepository and then filters them to find those with the first name "John".
+		// Finally, it subscribes to the filtered Flux and prints each matching Person.
+
+		var person_flux = personRepository.findAll();
+
+		person_flux
+			.filter(person -> person.firstName().equals("John"))
+			.subscribe(System.out::println);
+	}
+
 }
