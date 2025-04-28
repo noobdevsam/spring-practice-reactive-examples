@@ -145,4 +145,24 @@ class PersonRepositoryImplTest {
 			.subscribe(System.out::println);
 	}
 
+	@Test
+	void test_find_person_by_id_not_found() {
+		var person_flux = personRepository.findAll();
+
+		final Integer id = 0;
+
+		person_flux
+			.filter(person -> person.id() == id).single()
+			.doOnError(throwable -> {
+				System.out.println("Error occurred in flux");
+				System.out.println(throwable.toString());
+			}).subscribe(
+				person -> System.out.println(person.toString()),
+				throwable -> {
+					System.out.println("Error occurred in mono");
+					System.out.println(throwable.toString());
+				}
+			);
+	}
+
 }
