@@ -92,4 +92,20 @@ class PersonRepositoryImplTest {
 			.subscribe(System.out::println);
 	}
 
+	@Test
+	void test_flux_to_list() {
+		// This test demonstrates how to collect a Flux of Person objects into a List.
+		// It retrieves a Flux of Person objects from the PersonRepository and then collects them into a List using `collectList()`.
+		// Finally, it subscribes to the List and prints each Person's first name.
+
+		var person_flux = personRepository.findAll();
+
+		person_flux
+			.collectList()
+			.subscribe(list -> {
+				list.forEach(person -> System.out.println(person.firstName()));
+			});
+
+	}
+
 }
